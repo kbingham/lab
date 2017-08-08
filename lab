@@ -1,6 +1,12 @@
 #!/bin/sh
 
 case $1 in
+	kbingham)
+		echo "Welcome Admin"
+		;;
+esac
+
+case $2 in
 	upgrade)
 		git fetch origin
 		git reset --hard origin/master
