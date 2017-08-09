@@ -11,13 +11,13 @@ case $1 in
 		;;
 esac
 
-case $2 in
+case $SSH_ORIGINAL_COMMAND in
 	upgrade)
 		git fetch origin
 		git reset --hard origin/master
 		;;
 	*)
-		echo "Unknown command $1"
+		echo "Unknown command $SSH_ORIGINAL_COMMAND"
 		;;
 esac
 
