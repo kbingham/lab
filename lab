@@ -3,8 +3,11 @@
 cd `dirname $(readlink -f $0)`
 
 case $1 in
-	kbingham)
+	kieran|kbingham)
 		echo "Welcome Admin"
+		;;
+	*)
+		echo "Unregistered user"
 		;;
 esac
 
