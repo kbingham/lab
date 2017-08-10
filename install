@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Install our 'lab' user account, using this project as a home directory
+useradd -r -s /bin/sh -m -k . lab
+
