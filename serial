@@ -1,0 +1,25 @@
+#!/bin/bash
+
+DEVICE=$1
+
+function help() {
+	echo "Unrecoginised target [$DEVICE]"
+	echo "  Supported target devices:"
+	echo "    salvator-x|salvator-xs"
+	exit
+}
+
+case $DEVICE in
+	salvator-x)
+		SERIAL=/dev/serial/by-path/platform-3f980000.usb-usb-0:1.4:1.0-port0
+		;;
+	salvator-xs)
+		SERIAL=/dev/serial/by-path/platform-3f980000.usb-usb-0:1.2:1.0-port0
+		;;
+	*)
+		help
+		exit
+		;;
+esac
+
+screen -xR -S $DEVICE-serial $SERIAL 115200

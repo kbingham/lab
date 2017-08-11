@@ -2,6 +2,9 @@
 
 cd `dirname $(readlink -f $0)`
 
+echo : $SSH_ORIGINAL_COMMAND
+echo $*
+
 case $1 in
 	kieran|kbingham)
 		echo "Welcome Admin"
@@ -16,6 +19,12 @@ case $SSH_ORIGINAL_COMMAND in
 		git fetch origin
 		git reset --hard origin/master
 		./update-ssh-keys
+		;;
+	serial*)
+		./$SSH_ORIGINAL_COMMAND
+		;;
+	help)
+		echo "Use the force, Luke ..."
 		;;
 	*)
 		echo "Unknown command $SSH_ORIGINAL_COMMAND"
