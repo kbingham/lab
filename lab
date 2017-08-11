@@ -10,6 +10,7 @@ echo $*
 case $1 in
 	kieran|kbingham)
 		echo "Welcome Admin"
+		ADMIN=true
 		;;
 	*)
 		echo "Unregistered user"
@@ -17,12 +18,20 @@ case $1 in
 esac
 
 case $SSH_ORIGINAL_COMMAND in
+	shell)
+		if [ -z ${ADMIN+x} ];
+			then echo "You are not an admin";
+		else
+			bash;
+		fi;
+		;;
 	upgrade)
 		git fetch origin
 		git reset --hard origin/master
 		./update-ssh-keys
 		;;
 	serial*)
+		echo "./$SSH_ORIGINAL_COMMAND"
 		./$SSH_ORIGINAL_COMMAND
 		;;
 	help)
