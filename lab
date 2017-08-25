@@ -13,7 +13,6 @@ fi
 
 case $1 in
 	kieran|kbingham)
-		echo "Welcome Admin"
 		ADMIN=true
 		;;
 	*)
@@ -24,8 +23,11 @@ esac
 case $SSH_ORIGINAL_COMMAND in
 	shell*)
 		if [ -z ${ADMIN+x} ];
-			then echo "You are not an admin";
+		then
+			echo "You are not an admin";
+			exit;
 		else
+			echo "Welcome Admin"
 			bash;
 		fi;
 		;;
