@@ -2,6 +2,8 @@
 
 cd `dirname $(readlink -f $0)`
 
+BOARDS="salvator-x salvator-xs"
+
 if [[ $SSH_ORIGINAL_COMMAND =~ .*LAB_DEBUG=1.* ]]
 then
 	echo SSH_ORIGINAL_COMMAND : $SSH_ORIGINAL_COMMAND
@@ -27,6 +29,9 @@ case $SSH_ORIGINAL_COMMAND in
 			bash;
 		fi;
 		;;
+	ls*)
+		for b in $BOARDS; do echo $b; done;
+		;;
 	upgrade*)
 		git fetch origin
 		git reset --hard origin/master
@@ -40,7 +45,7 @@ case $SSH_ORIGINAL_COMMAND in
 		echo "Use the force, Luke ..."
 		;;
 	*)
-		echo "Unknown command $SSH_ORIGINAL_COMMAND"
+		echo "Unknown command: $SSH_ORIGINAL_COMMAND"
 		;;
 esac
 
