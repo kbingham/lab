@@ -1,11 +1,13 @@
-#!/bin/sh
-
-set -x
+#!/bin/bash
 
 cd `dirname $(readlink -f $0)`
 
-echo : $SSH_ORIGINAL_COMMAND
-echo $*
+if [[ $SSH_ORIGINAL_COMMAND =~ .*LAB_DEBUG=1.* ]]
+then
+	echo SSH_ORIGINAL_COMMAND : $SSH_ORIGINAL_COMMAND
+	echo [$0] $*
+	set -x
+fi
 
 case $1 in
 	kieran|kbingham)
@@ -18,14 +20,14 @@ case $1 in
 esac
 
 case $SSH_ORIGINAL_COMMAND in
-	shell)
+	shell*)
 		if [ -z ${ADMIN+x} ];
 			then echo "You are not an admin";
 		else
 			bash;
 		fi;
 		;;
-	upgrade)
+	upgrade*)
 		git fetch origin
 		git reset --hard origin/master
 		./update-ssh-keys
@@ -34,7 +36,7 @@ case $SSH_ORIGINAL_COMMAND in
 		echo "./$SSH_ORIGINAL_COMMAND"
 		./$SSH_ORIGINAL_COMMAND
 		;;
-	help)
+	help*)
 		echo "Use the force, Luke ..."
 		;;
 	*)
