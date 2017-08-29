@@ -26,6 +26,9 @@ if "LAB_DEBUG=1" in command:
     print(user.isAdmin())
 
 command_args = command.split()
+if len(command_args) < 1:
+    print("No commands provided")
+    exit()
 
 # First identify any board commands
 board = Board(command_args[0])
