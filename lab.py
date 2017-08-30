@@ -28,7 +28,8 @@ if "LAB_DEBUG=1" in command:
 command_args = command.split()
 if len(command_args) < 1:
     print("No commands provided")
-    exit()
+    command = "help"
+    command_args = command.split()
 
 # First identify any board commands
 board = Board(command_args[0])
