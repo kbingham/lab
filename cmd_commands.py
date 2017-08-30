@@ -10,3 +10,6 @@ class UserCommands(cmd.Cmd):
 
     def do_scp(self, line):
         print("SCP instance")
+
+    def default(self, line):
+        return False

@@ -37,7 +37,10 @@ if board is not None:
     exit()
 
 # Fall back to 'system commands'
-UserCommands().onecmd(command)
+completed = UserCommands().onecmd(command)
+if completed is not False:
+    # A command was handled
+    exit()
 
 # Only allow 'admin' commands below this point
 if not user.isAdmin():
