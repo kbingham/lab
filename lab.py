@@ -3,8 +3,9 @@
 import os
 import sys
 from users import User
-from boards import Board
+from cmd_boards import BoardCommands
 from cmd_commands import UserCommands
+from cmd_admin import AdminCommands
 
 command = os.environ.get('SSH_ORIGINAL_COMMAND')
 if command is None:
@@ -32,9 +33,8 @@ if len(command_args) < 1:
     command_args = command.split()
 
 # First identify any board commands
-board = Board(command_args[0])
-if board is not None:
-    board.execute(command_args)
+completed = BoardCommands().onecmd(command)
+if completed is not False:
     exit()
 
 # Fall back to 'system commands'
@@ -45,4 +45,10 @@ if completed is not False:
 
 # Only allow 'admin' commands below this point
 if not user.isAdmin():
+    print("I couldn't handle:", command)
     exit()
+
+# Handle administrator commands
+completed = AdminCommands().onecmd(command)
+if completed is False:
+    print("I couldn't handle:", command)
