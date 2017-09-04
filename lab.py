@@ -6,6 +6,7 @@ from users import User
 from cmd_boards import BoardCommands
 from cmd_commands import UserCommands
 from cmd_admin import AdminCommands
+from logger import log
 
 command = os.environ.get('SSH_ORIGINAL_COMMAND')
 
@@ -37,6 +38,9 @@ if len(command_args) < 1:
     print("No commands provided")
     command = "help"
     command_args = command.split()
+
+# Log commands
+log(user.name, command)
 
 # First identify any board commands
 completed = BoardCommands().onecmd(command)
