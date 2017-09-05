@@ -13,9 +13,9 @@ command = os.environ.get('SSH_ORIGINAL_COMMAND')
 # As per the SSH authorized_keys authentication, the user is provided
 # by the first argument only. No additional command line parsing is
 # required.
-user = User(sys.argv[1])
+User().login(sys.argv[1])
 
-if user is None:
+if User().name() is None:
     print("Failed to authenticate user")
     exit()
 
@@ -30,8 +30,8 @@ if command is None:
 
 if "LAB_DEBUG=1" in command:
     print(command)
-    print(user.name)
-    print(user.isAdmin())
+    print(User().name())
+    print(User().isAdmin())
 
 command_args = command.split()
 if len(command_args) < 1:
@@ -40,7 +40,7 @@ if len(command_args) < 1:
     command_args = command.split()
 
 # Log commands
-log(user.name, command)
+log(User().name(), command)
 
 # First identify any board commands
 completed = BoardCommands().onecmd(command)
@@ -54,7 +54,7 @@ if completed is not False:
     exit()
 
 # Only allow 'admin' commands below this point
-if not user.isAdmin():
+if not User().isAdmin():
     print("I couldn't handle:", command)
     exit()
 
