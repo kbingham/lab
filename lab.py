@@ -8,9 +8,6 @@ from cmd_commands import UserCommands
 from cmd_admin import AdminCommands
 
 command = os.environ.get('SSH_ORIGINAL_COMMAND')
-if command is None:
-    print("This utility must be run as an SSH agent")
-    exit()
 
 # As per the SSH authorized_keys authentication, the user is provided
 # by the first argument only. No additional command line parsing is
@@ -20,6 +17,15 @@ user = User(sys.argv[1])
 if user is None:
     print("Failed to authenticate user")
     exit()
+
+if command is None:
+    if User().isAdmin():
+        print("Ok just this once... Admin")
+        os.system("bash -l")
+        exit()
+    else:
+        print("This utility must be run as an SSH agent")
+        exit()
 
 if "LAB_DEBUG=1" in command:
     print(command)
