@@ -10,5 +10,8 @@ class AdminCommands(cmd.Cmd):
         print("Upgrading installation")
         os.system("git fetch && git reset --hard origin/master")
 
+    def do_logs(self, line):
+        os.system("tail -f lab.log")
+
     def default(self, line):
         return False
