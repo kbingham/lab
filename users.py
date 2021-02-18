@@ -29,6 +29,8 @@ class User(object):
     def name(self):
         return self.__name
 
+    # Not the most complicated of security ... but our premise is that
+    # our launch can only be executed through the SSH authorized_keys
     def isAdmin(self):
         if self.__name == "admin":
             return True
