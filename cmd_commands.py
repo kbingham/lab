@@ -4,7 +4,7 @@ from users import User
 
 class UserCommands(cmd.Cmd):
     def do_whoami(self, line):
-        print("You're user", User().name())
+        print("You are user", User().name())
 
     def do_hello(self, line):
         print("Hello there %s" % line)
