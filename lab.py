@@ -13,6 +13,10 @@ command = os.environ.get('SSH_ORIGINAL_COMMAND')
 # As per the SSH authorized_keys authentication, the user is provided
 # by the first argument only. No additional command line parsing is
 # required.
+if len(sys.argv) <= 1:
+    print("Failed to identify user")
+    exit()
+
 User().login(sys.argv[1])
 
 if User().name() is None:
