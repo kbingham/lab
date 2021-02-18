@@ -13,7 +13,7 @@ class UserCommands(cmd.Cmd):
         print("ls files")
 
     def do_scp(self, line):
-        print("SCP instance")
+        print("SCP instance %s" % line)
 
     def default(self, line):
         return False
